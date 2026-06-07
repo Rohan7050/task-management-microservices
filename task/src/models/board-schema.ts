@@ -53,3 +53,5 @@ boardSchema.statics.build = (attrs: BoardAttrs) => {
 };
 
 const Board = mongoose.model<BoardDoc, BoardModel>("Board", boardSchema);
+
+export {Board}
