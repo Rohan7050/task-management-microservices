@@ -6,6 +6,9 @@ import { updateBoardRouter } from "./routes/update-board";
 import { createBoardRouter } from "./routes/create-board";
 import { getAllBoardRouter } from "./routes/get-all-boards";
 import { getBoardDetailsRouter } from "./routes/get-board-details";
+import { createTaskRouter } from "./routes/create-task";
+import { updateTaskRouter } from "./routes/update-task";
+import { deleteTaskRouter } from "./routes/delete-task";
 
 const app = express();
 
@@ -27,6 +30,9 @@ app.use(updateBoardRouter);
 app.use(deleteBoardRouter);
 app.use(getAllBoardRouter);
 app.use(getBoardDetailsRouter);
+app.use(createTaskRouter);
+app.use(updateTaskRouter);
+app.use(deleteTaskRouter);
 
 app.get("/test", (req, res) => {
   res.json({ message: "Hello World!", env: process.env.NODE_ENV });
