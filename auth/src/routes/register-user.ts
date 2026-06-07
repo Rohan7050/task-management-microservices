@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
-router.post("register", async (req: Request, res: Response) => {
+router.post("/api/user/register", async (req: Request, res: Response) => {
     const { username, email, password } = req.body;
     const existingUser = await User.findOne({email});
     if (existingUser) {
@@ -28,3 +28,5 @@ router.post("register", async (req: Request, res: Response) => {
     };
     res.status(201).send({ message: "success", data: newUser });
 })
+
+export { router as registerUserRouter };
