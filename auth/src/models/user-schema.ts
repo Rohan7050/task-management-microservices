@@ -8,6 +8,7 @@ interface UserAttrs {
 }
 
 interface UserDoc extends mongoose.Document {
+  id: mongoose.Types.ObjectId;
   email: string;
   password: string;
   username: string;
@@ -35,7 +36,7 @@ const userSchema = new mongoose.Schema(
   },
   {
     toJSON: {
-        transform(doc, ret) {
+        transform(doc, ret: any) {
             delete ret?.password;    
             ret.id = ret._id;
             delete ret?._id;

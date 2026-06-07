@@ -1,0 +1,20 @@
+services:
+  tsm-auth:
+    build: ./auth
+    ports:
+      - "3001:3000"
+    env_file:
+      - ./auth/.env
+    depends_on:
+      - tsm-auth-mongo
+  
+  tsm-auth-mongo:
+    image: mongo:latest
+    container_name: tsm-auth-mongo
+    ports:
+      - "27017:27017"
+    # volumes:
+    #   - auth-mongo-data:/data/db
+
+# volumes:
+#   auth-mongo-data:
