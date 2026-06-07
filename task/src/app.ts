@@ -4,6 +4,8 @@ import { currentUser } from "./middlewares/current-user";
 import { deleteBoardRouter } from "./routes/delete-board";
 import { updateBoardRouter } from "./routes/update-board";
 import { createBoardRouter } from "./routes/create-board";
+import { getAllBoardRouter } from "./routes/get-all-boards";
+import { getBoardDetailsRouter } from "./routes/get-board-details";
 
 const app = express();
 
@@ -23,6 +25,8 @@ app.use(currentUser);
 app.use(createBoardRouter);
 app.use(updateBoardRouter);
 app.use(deleteBoardRouter);
+app.use(getAllBoardRouter);
+app.use(getBoardDetailsRouter);
 
 app.get("/test", (req, res) => {
   res.json({ message: "Hello World!", env: process.env.NODE_ENV });

@@ -33,4 +33,4 @@ router.get(
   },
 );
 
-export { router as createBoardRouter };
+export { router as getBoardDetailsRouter };

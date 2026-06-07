@@ -14,4 +14,4 @@ router.get("/api/board", requireAuth, async (req: Request, res: Response) => {
   res.status(201).send({ message: "success", data: boards });
 });
 
-export { router as createBoardRouter };
+export { router as getAllBoardRouter };
