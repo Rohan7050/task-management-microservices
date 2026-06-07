@@ -1,32 +1,49 @@
-import express, { Request, Response } from 'express';
-import {User} from "../models/user-schema";
+import express, { Request, Response } from "express";
+import { User } from "../models/user-schema";
 import jwt from "jsonwebtoken";
+import { validateRequest } from "../middlewares/validate-request";
+import { body } from "express-validator";
 
 const router = express.Router();
 
-router.post("/api/user/register", async (req: Request, res: Response) => {
+router.post(
+  "/api/user/register",
+  [
+    body("username")
+      .isString()
+      .isLength({ min: 4, max: 20 })
+      .withMessage("username must be between 4 to 20 chars"),
+    body("email").isEmail().withMessage("Email must be valid"),
+    body("password")
+      .trim()
+      .isLength({ min: 4, max: 20 })
+      .withMessage("password must be between 4 to 20 chars"),
+  ],
+  validateRequest,
+  async (req: Request, res: Response) => {
     const { username, email, password } = req.body;
-    const existingUser = await User.findOne({email});
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
-        return res.status(400).json({ message: "User already exists" });
+      return res.status(400).json({ message: "User already exists" });
     }
     const newUser = User.build({
-        username,
-        email,
-        password
+      username,
+      email,
+      password,
     });
     await newUser.save();
     const userJwt = jwt.sign(
-        {
-            id: newUser!.id,
-            email: newUser.email
-        },
-        process.env.JWT_KEY!
-    )
+      {
+        id: newUser!.id,
+        email: newUser.email,
+      },
+      process.env.JWT_KEY!,
+    );
     req.session = {
       jwt: userJwt,
     };
     res.status(201).send({ message: "success", data: newUser });
-})
+  },
+);
 
 export { router as registerUserRouter };
