@@ -16,5 +16,23 @@ services:
     # volumes:
     #   - auth-mongo-data:/data/db
 
-# volumes:
-#   auth-mongo-data:
+  tsm-task:
+    build: ./task
+    ports:
+      - "3002:3000"
+    env_file:
+      - ./task/.env
+    depends_on:
+      - tsm-task-mongo
+
+  tsm-task-mongo:
+    image: mongo:latest
+    container_name: tsm-task-mongo
+    ports:
+      - "27018:27017"
+    # volumes:
+    #   - auth-task-data:/data/db
+
+  # volumes:
+  #   auth-mongo-data:
+  #   task-mongo-data

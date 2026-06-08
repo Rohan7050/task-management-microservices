@@ -59,11 +59,9 @@ router.put(
     if (board.user_id !== currentUser) {
       return res.status(401).send({ message: "Not Autherized." });
     }
-    const task = await Board.findOne({
-        $where: {
-            _id: task_id,
-            board_id
-        }
+    const task = await Task.findOne({
+      _id: task_id,
+      board_id: board_id,
     });
     if (!task) {
       return res.status(404).send({ message: "task Not Found." });

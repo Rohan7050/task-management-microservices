@@ -25,9 +25,7 @@ router.get(
       return res.status(401).send({ message: "Not Autherized." });
     }
     const tasks = await Task.find({
-      $where: {
-        board_id: board.id,
-      },
+        board_id: board._id,
     }).lean();
     res.status(200).send({ message: "success", data: { ...board, tasks } });
   },

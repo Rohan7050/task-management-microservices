@@ -19,6 +19,7 @@ router.post(
       .withMessage("title must be between 4 to 20 chars"),
     body("desc").optional().trim().isString().withMessage("desc must be valid"),
     body("start_date")
+      .optional()
       .isISO8601()
       .withMessage("Invalid date")
       .custom((value) => {
