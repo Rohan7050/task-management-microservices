@@ -24,7 +24,7 @@ app.use(loginUserRouter);
 app.use(logoutUserRouter);
 app.use(currentUserRouter);
 
-app.get("/test", (req, res) => {
+app.get("/api/user/test", (req, res) => {
     res.json({ message: "Hello World!", env: process.env.NODE_ENV  });
 })
 

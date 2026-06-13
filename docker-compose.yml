@@ -66,10 +66,12 @@ services:
     build: ./client
     ports:
       - "3003:80"
-    # env_file:
-    #   - ./client/.env
-    # volumes:
-    #   - auth-task-data:/data/db
+
+  gateway:
+    build: ./gateway
+    ports:
+      - "3005:3000"
+
 
   # volumes:
   #   auth-mongo-data:
