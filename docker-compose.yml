@@ -61,6 +61,13 @@ services:
       timeout: 5s
       retries: 5
       start_period: 15s
+
+  tsm-client:
+    build: ./client
+    ports:
+      - "3003:80"
+    # env_file:
+    #   - ./client/.env
     # volumes:
     #   - auth-task-data:/data/db
 
