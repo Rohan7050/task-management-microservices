@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tsm-auth-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tsm-auth
+  template:
+    metadata:
+      labels:
+        app: tsm-auth
+    spec:
+      containers:
+        - name: tsm-auth
+          image: rohanpagare75/tsm-auth
+          env: 
+            - name: MONGO_URI
+              value: "mongodb://tsm-auth-mongo-srv:27017/auth"
+            - name: JWT_KEY
+              value: "mysecretkey"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tsm-auth-srv
+spec: 
+  type: NodePort
+  selector:
+    app: tsm-auth
+  ports:
+    - targetPort: 3000
+      port: 3000
+      nodePort: 30001
+  # selector:
+  #   app: tsm-auth
+  # ports:
+  #   - name: tsm-auth
+  #     protocol: TCP
+  #     port: 3000
+  #     targetPort: 3000

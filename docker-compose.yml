@@ -1,4 +1,17 @@
 services:
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    healthcheck:
+      # https://www.rabbitmq.com/docs/monitoring#stage-3
+      test: rabbitmq-diagnostics --quiet check_running && rabbitmq-diagnostics --quiet check_local_alarms
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
   tsm-auth:
     build: ./auth
     ports:
@@ -6,13 +19,22 @@ services:
     env_file:
       - ./auth/.env
     depends_on:
-      - tsm-auth-mongo
+      rabbitmq:
+        condition: service_healthy
+      tsm-auth-mongo:
+        condition: service_healthy
   
   tsm-auth-mongo:
     image: mongo:latest
     container_name: tsm-auth-mongo
     ports:
       - "27017:27017"
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping').ok", "--quiet"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
     # volumes:
     #   - auth-mongo-data:/data/db
 
@@ -23,13 +45,22 @@ services:
     env_file:
       - ./task/.env
     depends_on:
-      - tsm-task-mongo
+      tsm-task-mongo:
+        condition: service_healthy
+      rabbitmq: 
+        condition: service_healthy
 
   tsm-task-mongo:
     image: mongo:latest
     container_name: tsm-task-mongo
     ports:
       - "27018:27017"
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping').ok", "--quiet"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
     # volumes:
     #   - auth-task-data:/data/db
 

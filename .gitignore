@@ -168,3 +168,4 @@ dist-ssr
 *.sln
 *.sw?
 
+testing-queue/

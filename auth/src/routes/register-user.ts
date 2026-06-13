@@ -3,6 +3,8 @@ import { User } from "../models/user-schema";
 import jwt from "jsonwebtoken";
 import { validateRequest } from "../middlewares/validate-request";
 import { body } from "express-validator";
+import { UserCreatePublisher } from "../event/publisher/user-create.publisher";
+import { rabbitMQWrapper } from "../rabbitmq-wrapper";
 
 const router = express.Router();
 
@@ -42,6 +44,12 @@ router.post(
     req.session = {
       jwt: userJwt,
     };
+    const userCreated = new UserCreatePublisher(rabbitMQWrapper.channel);
+    await userCreated.publish({
+      id: newUser!.id.toString(),
+      email: newUser.email,
+      username
+    })
     res.status(201).send({ message: "success", data: newUser });
   },
 );

@@ -12,6 +12,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "amqplib": "^2.0.1",
     "cookie-session": "^2.1.1",
     "express": "^5.2.1",
     "express-validator": "^7.3.2",

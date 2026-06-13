@@ -1,0 +1,1 @@
+export type BroadcastType = "fanout" | "direct" | "topic" | "headers";
