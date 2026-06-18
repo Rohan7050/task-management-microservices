@@ -3,6 +3,7 @@ import type { LoginFormType } from "../../types/loginFormType";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginFormSchema } from "../../schema/loginFormSchema";
 import Button from "../../../../shared/components/Button/Button";
+import { UserDataService } from "../../service/user-data.service";
 
 const LoginPage = () => {
   const {
@@ -16,6 +17,7 @@ const LoginPage = () => {
   console.log(errors)
 
   const onSubmit: SubmitHandler<LoginFormType> = (data) => {
+    UserDataService.loginUser(data);
     console.log("data", data);
   };
 
@@ -40,7 +42,7 @@ const LoginPage = () => {
                     placeholder="Enter Email" 
                 />
                 {errors.email && (
-                    <p className="text-red-300 text-start text-sm mt-1">
+                    <p className="text-red-300 text-start text-xs mt-1">
                         Invalid Email
                     </p>
                 )}
@@ -63,7 +65,7 @@ const LoginPage = () => {
                     placeholder="Enter Password" 
                 />
                 {errors.password && (
-                    <p className="text-red-300 text-start text-sm mt-1">
+                    <p className="text-red-300 text-start text-xs mt-1">
                         Invalid Password (must be 5 to 20 charactor long)
                     </p>
                 )}
