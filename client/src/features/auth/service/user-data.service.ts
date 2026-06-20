@@ -13,4 +13,9 @@ export class UserDataService {
     const res = await postData(API_URL.register, body);
     return res;
   }
+
+  public static async logoutUser(body: object) {
+    const res = await postData(API_URL.logout, body);
+    return res;
+  }
 }

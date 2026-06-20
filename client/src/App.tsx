@@ -5,6 +5,8 @@ import PageWrapper from "./shared/components/PageWrapper/PageWrapper";
 import LandingPage from "./features/landing/page/LandingPage";
 import LoginPage from "./features/auth/pages/Login/LoginPage";
 import RegisterPage from "./features/auth/pages/Register/RegisterPage";
+import PostLoginGuard from "./shared/guards/PostLogin.guard";
+import BoardsPage from "./features/boards/pages/BoardsPage";
 
 const router = createBrowserRouter([
   {
@@ -28,13 +30,14 @@ const router = createBrowserRouter([
           }
         ] 
       },
-      // {
-      //   element: <AuthGuard/>,
-      //   children: [
-      //     { path: "boards", element: <BoadsPage /> },
-      //     { path: "boards/:id", element: <BoardDetailPage />},
-      //   ]
-      // },
+      {
+        path: "user",
+        element: <PostLoginGuard/>,
+        children: [
+          { path: "boards", element: <BoardsPage /> },
+          // { path: "boards/:id", element: <BoardDetailPage />},
+        ]
+      },
       // { path: "*", element: <NotFoundPage /> },
     ],
   },

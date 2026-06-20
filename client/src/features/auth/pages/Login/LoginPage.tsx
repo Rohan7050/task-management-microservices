@@ -4,8 +4,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { loginFormSchema } from "../../schema/loginFormSchema";
 import Button from "../../../../shared/components/Button/Button";
 import { UserDataService } from "../../service/user-data.service";
+import { useAuthStore } from "../../../../shared/store/auth.store";
+import {useNavigate} from "react-router-dom"
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const authStore = useAuthStore();
   const {
     register,
     handleSubmit,
@@ -16,8 +20,16 @@ const LoginPage = () => {
 
   console.log(errors)
 
-  const onSubmit: SubmitHandler<LoginFormType> = (data) => {
-    UserDataService.loginUser(data);
+  const onSubmit: SubmitHandler<LoginFormType> = async (data) => {
+    const res = await UserDataService.loginUser(data);
+    if(res.data) {
+      authStore.setAuth(res.data, true);
+      navigate('/user/boards');
+    }else {
+      UserDataService.logoutUser({});
+      authStore.logout();
+    }
+    console.log(res)
     console.log("data", data);
   };
 

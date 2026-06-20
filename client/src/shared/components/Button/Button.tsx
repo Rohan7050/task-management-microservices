@@ -5,7 +5,7 @@ interface ButtonProps {
   text: string;
   action?: () => void;
   color: "primary" | "secondary";
-  type: "button" | "submit" | "reset" | undefined
+  type?: "button" | "submit" | "reset" | undefined
 }
 
 const Button: React.FC<ButtonProps> = ({ text, action, color, type = "button" }) => {

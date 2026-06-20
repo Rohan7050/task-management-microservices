@@ -4,8 +4,12 @@ import { registerFormSchema } from "../../schema/registerFormSchema";
 import type { RegisterFormType } from "../../types/registerFormType";
 import { UserDataService } from "../../service/user-data.service";
 import Button from "../../../../shared/components/Button/Button";
+import { useAuthStore } from "../../../../shared/store/auth.store";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
+  const authStore = useAuthStore()
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -14,8 +18,15 @@ const RegisterPage = () => {
     resolver: zodResolver(registerFormSchema),
   });
 
-  const onSubmit: SubmitHandler<RegisterFormType> = (data) => {
-    UserDataService.registerUser(data);
+  const onSubmit: SubmitHandler<RegisterFormType> = async (data) => {
+    const res = await UserDataService.registerUser(data);
+    if(res.data) {
+      authStore.setAuth(res.data, true);
+      navigate('/user/boards');
+    }else {
+      UserDataService.logoutUser({});
+      authStore.logout();
+    }
     console.log("registerUser", data);
   };
 
