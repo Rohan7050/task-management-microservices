@@ -34,7 +34,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="form-container bg-purple-900 p-5 rounded-sm outline-solid border border-sky-500">
+    <div className="form-container h-full bg-purple-900 p-5 rounded-sm outline-solid border border-sky-500">
       <form className="form" onSubmit={handleSubmit(onSubmit)} action="#" method="POST">
         <div className="grid grid-cols-1 gap-x-8 gap-y-6">
           <div>

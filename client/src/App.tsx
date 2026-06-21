@@ -6,37 +6,40 @@ import LandingPage from "./features/landing/page/LandingPage";
 import LoginPage from "./features/auth/pages/Login/LoginPage";
 import RegisterPage from "./features/auth/pages/Register/RegisterPage";
 import PostLoginGuard from "./shared/guards/PostLogin.guard";
-import BoardsPage from "./features/boards/pages/BoardsPage";
+import BoardsPage from "./features/boards/pages/BoardPage/BoardsPage";
+import { boardPageLoader } from "./features/boards/pages/BoardPage/boardPageLoader";
+import BoardDetailsPage from "./features/boards/pages/BoardDetailsPage/BoardDetailsPage";
+import { boardDetailsPageLoader } from "./features/boards/pages/BoardDetailsPage/boardDetailsLoader";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <PageWrapper />,
     children: [
-      { 
-        element: <PreLoginGuard />, 
+      {
+        element: <PreLoginGuard />,
         children: [
           {
             index: true,
-            element: <LandingPage/>
+            element: <LandingPage />,
           },
           {
             path: "login",
-            element: <LoginPage/>
+            element: <LoginPage />,
           },
           {
             path: "register",
-            element: <RegisterPage/>
-          }
-        ] 
+            element: <RegisterPage />,
+          },
+        ],
       },
       {
         path: "user",
-        element: <PostLoginGuard/>,
+        element: <PostLoginGuard />,
         children: [
           { path: "boards", element: <BoardsPage /> },
-          // { path: "boards/:id", element: <BoardDetailPage />},
-        ]
+          { path: "boards/:id", element: <BoardDetailsPage />, loader: boardDetailsPageLoader },
+        ],
       },
       // { path: "*", element: <NotFoundPage /> },
     ],
@@ -44,7 +47,6 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-
   return (
     <>
       <RouterProvider router={router}></RouterProvider>
