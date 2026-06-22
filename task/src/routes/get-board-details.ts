@@ -26,7 +26,7 @@ router.get(
     }
     const tasks = await Task.find({
         board_id: board._id,
-    }).lean();
+    });
     res.status(200).send({ message: "success", data: { ...board, tasks } });
   },
 );

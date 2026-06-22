@@ -9,8 +9,8 @@ const router = express.Router();
 router.get("/api/board", requireAuth, async (req: Request, res: Response) => {
   const userId = req.currentUser!.id;
   const boards = await Board.find({
-    $where: { user_id: userId },
-  }).lean();
+    user_id: userId,
+  });
   res.status(201).send({ message: "success", data: boards });
 });
 

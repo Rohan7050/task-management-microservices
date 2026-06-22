@@ -14,6 +14,7 @@
   "dependencies": {
     "amqplib": "^2.0.1",
     "cookie-session": "^2.1.1",
+    "cors": "^2.8.6",
     "express": "^5.2.1",
     "express-validator": "^7.3.2",
     "jsonwebtoken": "^9.0.3",
@@ -22,6 +23,7 @@
     "typescript": "^6.0.3"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/cookie-session": "^2.0.49",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",

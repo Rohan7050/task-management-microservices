@@ -9,12 +9,20 @@ import { getBoardDetailsRouter } from "./routes/get-board-details";
 import { createTaskRouter } from "./routes/create-task";
 import { updateTaskRouter } from "./routes/update-task";
 import { deleteTaskRouter } from "./routes/delete-task";
+import cors from 'cors';
 
 const app = express();
 
 app.set("trust proxy", true);
 
 app.use(express.json());
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true, // only if using cookies
+  }),
+);
 
 app.use(
   cookieSession({

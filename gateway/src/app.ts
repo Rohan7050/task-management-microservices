@@ -1,7 +1,14 @@
 import express, { Request, Response, NextFunction } from "express";
 import httpProxy from "http-proxy";
+import cors from 'cors';
 
 const app = express();
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true, // only if using cookies
+  }),
+);
 const proxy = httpProxy.createProxyServer({
     changeOrigin: true,
     prependPath: false
