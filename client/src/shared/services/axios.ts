@@ -2,6 +2,8 @@ import Axios from "axios";
 
 const axios = Axios.create({});
 
+export const isAxiosError = Axios.isAxiosError;
+
 const serverUrl = "http://localhost:3005";
 export const baseURL = `${serverUrl}`;
 

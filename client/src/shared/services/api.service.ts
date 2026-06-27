@@ -1,4 +1,4 @@
-import axios from "./axios";
+import axios, {isAxiosError} from "./axios";
 
 export const getData = async (url: string, params = {}) => {
   try {
@@ -17,8 +17,14 @@ export const postData = async (
   try {
     const res = await axios.post(url, body, { params });
     return res.data;
-  } catch (e) {
-    return e;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(
+        error.response?.data?.message || 'Something went wrong', { cause: error }
+      );
+    }
+
+    throw error;
   }
 };
 

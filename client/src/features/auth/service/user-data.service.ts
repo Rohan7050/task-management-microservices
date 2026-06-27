@@ -5,8 +5,13 @@ import type { RegisterFormType } from "../types/registerFormType";
 
 export class UserDataService {
   public static async loginUser(body: LoginFormType) {
-    const res = await postData(API_URL.login, body);
-    return res;
+    // eslint-disable-next-line no-useless-catch
+    try {
+      const res = await postData(API_URL.login, body);
+      return res;
+    } catch (e) {
+      throw e;
+    }
   }
 
   public static async registerUser(body: RegisterFormType) {
