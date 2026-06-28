@@ -31,7 +31,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="form-container h-full bg-purple-900 p-5 rounded-sm outline-solid border border-sky-500">
+    <div className="form-container h-full w-full bg-purple-900 p-5 rounded-sm outline-solid border border-sky-500">
       <form
         className="form"
         onSubmit={handleSubmit(onSubmit)}

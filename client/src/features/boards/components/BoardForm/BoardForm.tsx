@@ -3,8 +3,13 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import type { BoardFormType } from "../../types/boardFormType";
 import { boardFormSchema } from "../../schema/boardFormSchema";
 import Button from "../../../../shared/components/Button/Button";
+import { BoardDataService } from "../../service/board-data.service";
+import { useState } from "react";
+import { useBoardStore } from "../../pages/store/board.store";
 
 const BoardForm = () => {
+  const [error, setError] = useState('');
+  const { setBoard, board } = useBoardStore();
   const {
     register,
     handleSubmit,
@@ -14,12 +19,22 @@ const BoardForm = () => {
   });
 
   const onSubmit: SubmitHandler<BoardFormType> = async (data) => {
+    try {
+      const res = await BoardDataService.createNewBoard(data);
+      // console.log('--------> ',newBoard)
+      setError('')
+      if(res.data) {
+        setBoard([res.data, ...board])
+      }
+    }catch (e) {
+      setError(e?.message ?? '');
+    }
     console.log(data);
     console.log("data", data);
   };
 
   return (
-    <div className="form-container h-full bg-purple-900 p-5 rounded-sm outline-solid border border-sky-500">
+    <div className="form-container w-full h-full bg-purple-900 p-5 rounded-sm outline-solid border border-sky-500">
       <form
         className="form"
         onSubmit={handleSubmit(onSubmit)}
@@ -73,6 +88,11 @@ const BoardForm = () => {
               )}
             </div>
           </div>
+          {error && (
+            <p className="text-red-300 text-start text-xs mt-1">
+              {error}
+            </p>
+          )}
           <div>
             <Button type={"submit"} text={"Create Board"} color={"secondary"}></Button>
           </div>

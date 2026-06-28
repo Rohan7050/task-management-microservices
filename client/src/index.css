@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
 .form-container {
-    min-width: 30rem;
-
+    max-width: 30rem;
 }

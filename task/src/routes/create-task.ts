@@ -15,7 +15,7 @@ router.post(
     body("title")
       .trim()
       .isString()
-      .isLength({ min: 4, max: 20 })
+      .isLength({ min: 4, max: 50 })
       .withMessage("title must be between 4 to 20 chars"),
     body("desc").optional().trim().isString().withMessage("desc must be valid"),
     body("start_date")

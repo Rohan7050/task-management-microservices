@@ -7,7 +7,6 @@ import LoginPage from "./features/auth/pages/Login/LoginPage";
 import RegisterPage from "./features/auth/pages/Register/RegisterPage";
 import PostLoginGuard from "./shared/guards/PostLogin.guard";
 import BoardsPage from "./features/boards/pages/BoardPage/BoardsPage";
-import { boardPageLoader } from "./features/boards/pages/BoardPage/boardPageLoader";
 import BoardDetailsPage from "./features/boards/pages/BoardDetailsPage/BoardDetailsPage";
 import { boardDetailsPageLoader } from "./features/boards/pages/BoardDetailsPage/boardDetailsLoader";
 

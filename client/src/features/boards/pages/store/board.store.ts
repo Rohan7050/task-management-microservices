@@ -8,7 +8,7 @@ type BoardType = {
 };
 
 interface BoardState {
-  board: BoardType[] | null;
+  board: BoardType[];
   setBoard: (boardList: BoardType[]) => void;
   clearBoard: () => void;
 }

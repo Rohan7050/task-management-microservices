@@ -5,5 +5,6 @@ export const API_URL = {
     currentUser: 'user/api/user/currentuser',
 
     board: '/board/api/board',
-    boardDetails: '/board/api/board/'
+    boardDetails: '/board/api/board/',
+    createBoard: '/board/api/board/create'
 } 
